@@ -9,7 +9,7 @@
 		"ignoreUnknown": false,
 		"ignore": [
 			"./.cache",
-			"./build",
+			"./dist",
 			"./app/api/schema.d.ts",
 			"./app/shiki.bundle.ts"
 		]

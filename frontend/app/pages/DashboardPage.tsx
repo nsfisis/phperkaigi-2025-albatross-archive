@@ -1,25 +1,11 @@
-import type { MetaFunction } from "react-router";
-import { useLoaderData } from "react-router";
-import { createApiClient } from "../api/client";
 import BorderedContainerWithCaption from "../components/BorderedContainerWithCaption";
 import NavigateLink from "../components/NavigateLink";
 
-export const meta: MetaFunction = () => [
-	{ title: "Dashboard | PHPerKaigi 2025 Albatross" },
-];
+type Props = {
+	games: { game_id: number; display_name: string }[];
+};
 
-export async function loader() {
-	const apiClient = createApiClient();
-
-	const { games } = await apiClient.getGames();
-	return {
-		games,
-	};
-}
-
-export default function Dashboard() {
-	const { games } = useLoaderData<typeof loader>()!;
-
+export default function DashboardPage({ games }: Props) {
 	return (
 		<div className="p-6 bg-gray-100 min-h-screen flex flex-col items-center gap-4">
 			<h1 className="text-3xl font-bold text-gray-800">試合一覧</h1>
@@ -37,7 +23,7 @@ export default function Dashboard() {
 									</span>
 								</div>
 								<div className="flex gap-2">
-									<NavigateLink to={`/golf/${game.game_id}/watch`}>
+									<NavigateLink to={`/golf/${game.game_id}/watch/`}>
 										結果を見る
 									</NavigateLink>
 								</div>

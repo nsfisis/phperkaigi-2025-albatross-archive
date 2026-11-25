@@ -1,6 +1,2 @@
 /node_modules/
-
-/.react-router/
-/build/
-
-.env
+/dist/

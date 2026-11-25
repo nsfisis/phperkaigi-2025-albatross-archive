@@ -1,16 +1,12 @@
-import type { MetaFunction } from "react-router";
 import BorderedContainer from "../components/BorderedContainer";
 import NavigateLink from "../components/NavigateLink";
+import { BASE_PATH } from "../config";
 
-export const meta: MetaFunction = () => [
-	{ title: "PHPerKaigi 2025 Albatross" },
-];
-
-export default function Index() {
+export default function IndexPage() {
 	return (
 		<div className="min-h-screen bg-sky-600 flex flex-col items-center justify-center gap-y-6">
 			<img
-				src="/phperkaigi/2025/code-battle/logo.svg"
+				src={`${BASE_PATH}logo.svg`}
 				alt="PHPerKaigi 2025"
 				className="w-64 h-64"
 			/>
@@ -38,7 +34,7 @@ export default function Index() {
 							の会期中は提出が可能でした。閲覧できるのは最終的な提出コードで、コードバトルの場で書いたものとは異なる場合があります）。
 						</p>
 						<div className="mt-4 flex justify-center gap-4">
-							<NavigateLink to="/dashboard">問題一覧</NavigateLink>
+							<NavigateLink to="/dashboard/">問題一覧</NavigateLink>
 						</div>
 					</div>
 				</BorderedContainer>
