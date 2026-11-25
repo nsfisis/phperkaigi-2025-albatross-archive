@@ -13,7 +13,8 @@
 			"!dist",
 			"!app/api/schema.d.ts",
 			"!data",
-			"!package-lock.json"
+			"!package-lock.json",
+			"!public"
 		]
 	},
 	"formatter": {
@@ -22,7 +23,12 @@
 	},
 	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
-		"enabled": false
+		"enabled": true,
+		"rules": {
+			"style": {
+				"noNonNullAssertion": "off"
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {
