@@ -6,7 +6,7 @@ ENV NODE_ENV=production
 COPY package.json package-lock.json ./
 RUN npm ci --include=dev
 
-COPY index.html prerender.ts tsconfig.json vite.config.ts ./
+COPY .gitignore index.html prerender.ts tsconfig.json vite.config.ts ./
 COPY app/ app/
 COPY archives/ archives/
 COPY public/ public/
