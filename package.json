@@ -11,23 +11,23 @@
 		"check:ts": "tsc"
 	},
 	"dependencies": {
-		"@base-ui-components/react": "^1.0.0-alpha.7",
-		"@fortawesome/fontawesome-svg-core": "^6.7.2",
-		"@fortawesome/free-solid-svg-icons": "^6.7.2",
-		"@fortawesome/react-fontawesome": "^0.2.2",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"@base-ui-components/react": "^1.0.0-rc.0",
+		"@fortawesome/fontawesome-svg-core": "^7.3.1",
+		"@fortawesome/free-solid-svg-icons": "^7.3.1",
+		"@fortawesome/react-fontawesome": "^3.5.0",
+		"react": "^19.3.1",
+		"react-dom": "^19.3.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.6.9",
-		"@tailwindcss/vite": "^4.0.12",
-		"@types/node": "^22.13.10",
-		"@types/react": "^19.0.0",
-		"@types/react-dom": "^19.0.0",
-		"@vitejs/plugin-react": "^4.7.0",
-		"tailwindcss": "^4.0.12",
-		"typescript": "^5.8.2",
-		"vite": "^6.1.1"
+		"@tailwindcss/vite": "^4.3.5",
+		"@types/node": "^22.20.7",
+		"@types/react": "^19.3.2",
+		"@types/react-dom": "^19.3.0",
+		"@vitejs/plugin-react": "^6.3.0",
+		"tailwindcss": "^4.3.5",
+		"typescript": "^5.9.3",
+		"vite": "^8.3.8"
 	},
 	"engines": {
 		"node": ">=22.0.0"
