@@ -12,7 +12,7 @@
 			"./dist",
 			"./app/api/schema.d.ts",
 			"./app/shiki.bundle.ts",
-			"./archives",
+			"./data",
 			"./package-lock.json"
 		]
 	},

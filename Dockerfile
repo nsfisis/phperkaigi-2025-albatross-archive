@@ -8,7 +8,7 @@ RUN npm ci --include=dev
 
 COPY .gitignore index.html prerender.ts tsconfig.json vite.config.ts ./
 COPY app/ app/
-COPY archives/ archives/
+COPY data/ data/
 COPY public/ public/
 RUN npm run build
 
