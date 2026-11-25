@@ -34,19 +34,6 @@ class ApiClient {
 		if (error) throw new Error(error.message);
 		return data;
 	}
-
-	async getGameWatchLatestStates(gameId: number) {
-		const { data, error } = await client.GET(
-			"/games/{game_id}/watch/latest_states",
-			{
-				params: {
-					path: { game_id: gameId },
-				},
-			},
-		);
-		if (error) throw new Error(error.message);
-		return data;
-	}
 }
 
 export function createApiClient() {

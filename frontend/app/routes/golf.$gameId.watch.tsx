@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { redirect, useLoaderData } from "react-router";
 import { createApiClient } from "../api/client";
-import GolfWatchApp from "../components/GolfWatchApp";
+import GolfWatchAppGamingMultiplayer from "../components/GolfWatchApps/GolfWatchAppGamingMultiplayer";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
 	{
@@ -17,16 +17,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
 	const gameId = Number(params.gameId);
 
 	try {
-		const [{ game }, { ranking }, { states: gameStates }] = await Promise.all([
-			await apiClient.getGame(gameId),
-			await apiClient.getGameWatchRanking(gameId),
-			await apiClient.getGameWatchLatestStates(gameId),
+		const [{ game }, { ranking }] = await Promise.all([
+			apiClient.getGame(gameId),
+			apiClient.getGameWatchRanking(gameId),
 		]);
 
 		return {
 			game,
 			ranking,
-			gameStates,
 		};
 	} catch {
 		throw redirect("/dashboard");
@@ -34,13 +32,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function GolfWatch() {
-	const { game, ranking, gameStates } = useLoaderData<typeof loader>();
+	const { game, ranking } = useLoaderData<typeof loader>();
 
 	return (
-		<GolfWatchApp
-			key={game.game_id}
-			game={game}
-			gameStates={gameStates}
+		<GolfWatchAppGamingMultiplayer
+			gameDisplayName={game.display_name}
+			problemTitle={game.problem.title}
+			problemDescription={game.problem.description}
+			sampleCode={game.problem.sample_code}
 			ranking={ranking}
 		/>
 	);
