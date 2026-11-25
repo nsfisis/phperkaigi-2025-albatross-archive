@@ -1,6 +1,5 @@
-import { useAtomValue } from "jotai";
-import React from "react";
-import { rankingAtom } from "../../states/watch";
+import type React from "react";
+import type { components } from "../../api/schema";
 import CodePopover from "./CodePopover";
 
 function TableHeaderCell({ children }: { children: React.ReactNode }) {
@@ -29,9 +28,13 @@ function formatUnixTimestamp(timestamp: number) {
 	return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
-export default function RankingTable() {
-	const ranking = useAtomValue(rankingAtom);
+type RankingEntry = components["schemas"]["RankingEntry"];
 
+type Props = {
+	ranking: RankingEntry[];
+};
+
+export default function RankingTable({ ranking }: Props) {
 	return (
 		<div className="overflow-x-auto border-2 border-blue-600 rounded-xl">
 			<table className="min-w-full divide-y divide-gray-400 border-collapse">

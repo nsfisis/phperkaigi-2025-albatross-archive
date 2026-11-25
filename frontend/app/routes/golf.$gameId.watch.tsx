@@ -1,8 +1,6 @@
-import { Provider as JotaiProvider, createStore } from "jotai";
-import { useMemo } from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { redirect, useLoaderData } from "react-router";
-import { ApiClientContext, createApiClient } from "../api/client";
+import { createApiClient } from "../api/client";
 import GolfWatchApp from "../components/GolfWatchApp";
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
@@ -38,21 +36,12 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function GolfWatch() {
 	const { game, ranking, gameStates } = useLoaderData<typeof loader>();
 
-	const store = useMemo(() => {
-		void game.game_id;
-		return createStore();
-	}, [game.game_id]);
-
 	return (
-		<JotaiProvider store={store}>
-			<ApiClientContext.Provider value={createApiClient()}>
-				<GolfWatchApp
-					key={game.game_id}
-					game={game}
-					initialGameStates={gameStates}
-					initialRanking={ranking}
-				/>
-			</ApiClientContext.Provider>
-		</JotaiProvider>
+		<GolfWatchApp
+			key={game.game_id}
+			game={game}
+			gameStates={gameStates}
+			ranking={ranking}
+		/>
 	);
 }

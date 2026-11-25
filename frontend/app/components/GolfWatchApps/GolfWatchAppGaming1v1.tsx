@@ -1,15 +1,8 @@
-import { useAtomValue } from "jotai";
-import {
-	calcCodeSize,
-	checkGameResultKind,
-	gameStateKindAtom,
-	gamingLeftTimeSecondsAtom,
-	latestGameStatesAtom,
-} from "../../states/watch";
+import type { components } from "../../api/schema";
+import { calcCodeSize } from "../../codeSize";
 import type { PlayerProfile } from "../../types/PlayerProfile";
 import FoldableBorderedContainerWithCaption from "../FoldableBorderedContainerWithCaption";
 import CodeBlock from "../Gaming/CodeBlock";
-import LeftTime from "../Gaming/LeftTime";
 import ProblemColumnContent from "../Gaming/ProblemColumnContent";
 import RankingTable from "../Gaming/RankingTable";
 import ScoreBar from "../Gaming/ScoreBar";
@@ -18,6 +11,36 @@ import ThreeColumnLayout from "../ThreeColumnLayout";
 import TitledColumn from "../TitledColumn";
 import UserIcon from "../UserIcon";
 
+type LatestGameState = components["schemas"]["LatestGameState"];
+type RankingEntry = components["schemas"]["RankingEntry"];
+
+type GameResultKind = "winA" | "winB" | "draw";
+
+function checkGameResultKind(
+	stateA: LatestGameState | null,
+	stateB: LatestGameState | null,
+): GameResultKind {
+	const scoreA = stateA?.score;
+	const scoreB = stateB?.score;
+	if (scoreA == null && scoreB == null) {
+		return "draw";
+	}
+	if (scoreA == null) {
+		return "winB";
+	}
+	if (scoreB == null) {
+		return "winA";
+	}
+	if (scoreA === scoreB) {
+		// If score is non-null, state and best_score_submitted_at should also be non-null.
+		const submittedAtA = stateA!.best_score_submitted_at!;
+		const submittedAtB = stateB!.best_score_submitted_at!;
+		return submittedAtA < submittedAtB ? "winA" : "winB";
+	} else {
+		return scoreA < scoreB ? "winA" : "winB";
+	}
+}
+
 type Props = {
 	gameDisplayName: string;
 	playerProfileA: PlayerProfile | null;
@@ -25,6 +48,8 @@ type Props = {
 	problemTitle: string;
 	problemDescription: string;
 	sampleCode: string;
+	gameStates: { [key: string]: LatestGameState | undefined };
+	ranking: RankingEntry[];
 };
 
 export default function GolfWatchAppGaming1v1({
@@ -34,11 +59,9 @@ export default function GolfWatchAppGaming1v1({
 	problemTitle,
 	problemDescription,
 	sampleCode,
+	gameStates: latestGameStates,
+	ranking,
 }: Props) {
-	const gameStateKind = useAtomValue(gameStateKindAtom);
-	const leftTimeSeconds = useAtomValue(gamingLeftTimeSecondsAtom)!;
-	const latestGameStates = useAtomValue(latestGameStatesAtom);
-
 	const stateA =
 		playerProfileA && (latestGameStates[`${playerProfileA.id}`] ?? null);
 	const codeA = stateA?.code ?? "";
@@ -53,15 +76,14 @@ export default function GolfWatchAppGaming1v1({
 	const codeSizeA = calcCodeSize(codeA);
 	const codeSizeB = calcCodeSize(codeB);
 
-	const gameResultKind = checkGameResultKind(gameStateKind, stateA, stateB);
+	const gameResultKind = checkGameResultKind(stateA, stateB);
 
-	const topBg = gameResultKind
-		? gameResultKind === "winA"
+	const topBg =
+		gameResultKind === "winA"
 			? "bg-orange-400"
 			: gameResultKind === "winB"
 				? "bg-purple-400"
-				: "bg-sky-600"
-		: "bg-sky-600";
+				: "bg-sky-600";
 
 	return (
 		<div className="min-h-screen bg-gray-100 flex flex-col">
@@ -81,19 +103,15 @@ export default function GolfWatchAppGaming1v1({
 					</div>
 					<div className="text-2xl md:text-6xl">{scoreA}</div>
 				</div>
-				<div className="font-bold text-center">
-					<div className="text-gray-100">{gameDisplayName}</div>
-					{gameResultKind ? (
-						<div className="text-3xl">
-							{gameResultKind === "winA"
-								? `勝者 ${playerProfileA!.displayName}`
-								: gameResultKind === "winB"
-									? `勝者 ${playerProfileB!.displayName}`
-									: "引き分け"}
-						</div>
-					) : (
-						<LeftTime sec={leftTimeSeconds} />
-					)}
+				<div className="font-bold text-center my-auto">
+					<div className="text-3xl">{gameDisplayName}</div>
+					<div className="text-xl text-gray-100">
+						{gameResultKind === "winA"
+							? `勝者 ${playerProfileA!.displayName}`
+							: gameResultKind === "winB"
+								? `勝者 ${playerProfileB!.displayName}`
+								: "引き分け"}
+					</div>
 				</div>
 				<div className="font-bold flex gap-4 justify-end md:justify-between items-center my-auto">
 					<div className="text-2xl md:text-6xl">{scoreB}</div>
@@ -133,7 +151,7 @@ export default function GolfWatchAppGaming1v1({
 						description={problemDescription}
 						sampleCode={sampleCode}
 					/>
-					<RankingTable />
+					<RankingTable ranking={ranking} />
 				</TitledColumn>
 				<TitledColumn
 					title={<SubmitStatusLabel status={statusB} />}

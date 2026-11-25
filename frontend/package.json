@@ -22,20 +22,13 @@
 		"@react-router/fs-routes": "^7.3.0",
 		"@react-router/node": "^7.3.0",
 		"@react-router/serve": "^7.3.0",
-		"cookie": "^1.0.2",
 		"hast-util-to-jsx-runtime": "^2.3.6",
 		"isbot": "^5.1.23",
-		"jotai": "^2.12.1",
-		"jwt-decode": "^4.0.0",
 		"openapi-fetch": "^0.13.4",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.3.0",
-		"react-use-precision-timer": "^3.5.6",
-		"remix-auth": "^4.1.0",
-		"remix-auth-form": "^3.0.0",
-		"shiki": "^3.1.0",
-		"use-debounce": "^10.0.4"
+		"shiki": "^3.1.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
