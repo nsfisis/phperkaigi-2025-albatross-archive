@@ -11,7 +11,7 @@ type EntryServer = {
 };
 
 async function readData<T>(path: string): Promise<T> {
-	return JSON.parse(await readFile(`../archives/api/${path}`, "utf8")) as T;
+	return JSON.parse(await readFile(`archives/api/${path}`, "utf8")) as T;
 }
 
 async function collectPages(): Promise<[string, PageData][]> {

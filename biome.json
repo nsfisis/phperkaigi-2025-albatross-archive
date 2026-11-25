@@ -11,7 +11,9 @@
 			"./.cache",
 			"./dist",
 			"./app/api/schema.d.ts",
-			"./app/shiki.bundle.ts"
+			"./app/shiki.bundle.ts",
+			"./archives",
+			"./package-lock.json"
 		]
 	},
 	"formatter": {
