@@ -2,7 +2,6 @@ import { Provider as JotaiProvider, createStore } from "jotai";
 import { useMemo } from "react";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { redirect, useLoaderData } from "react-router";
-import { ensureUserLoggedIn } from "../.server/auth";
 import { ApiClientContext, createApiClient } from "../api/client";
 import GolfWatchApp from "../components/GolfWatchApp";
 
@@ -14,9 +13,8 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 	},
 ];
 
-export async function loader({ params, request }: LoaderFunctionArgs) {
-	const { token } = await ensureUserLoggedIn(request);
-	const apiClient = createApiClient(token);
+export async function loader({ params }: LoaderFunctionArgs) {
+	const apiClient = createApiClient();
 
 	const gameId = Number(params.gameId);
 
@@ -28,7 +26,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 		]);
 
 		return {
-			apiToken: token,
 			game,
 			ranking,
 			gameStates,
@@ -39,8 +36,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 }
 
 export default function GolfWatch() {
-	const { apiToken, game, ranking, gameStates } =
-		useLoaderData<typeof loader>();
+	const { game, ranking, gameStates } = useLoaderData<typeof loader>();
 
 	const store = useMemo(() => {
 		void game.game_id;
@@ -49,7 +45,7 @@ export default function GolfWatch() {
 
 	return (
 		<JotaiProvider store={store}>
-			<ApiClientContext.Provider value={createApiClient(apiToken)}>
+			<ApiClientContext.Provider value={createApiClient()}>
 				<GolfWatchApp
 					key={game.game_id}
 					game={game}

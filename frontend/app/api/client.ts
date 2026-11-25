@@ -9,26 +9,9 @@ const client = createClient<paths>({
 			: "https://t.nil.ninja/phperkaigi/2025/code-battle/api/",
 });
 
-export async function apiLogin(username: string, password: string) {
-	const { data, error } = await client.POST("/login", {
-		body: {
-			username,
-			password,
-		},
-	});
-	if (error) throw new Error(error.message);
-	return data;
-}
-
-class AuthenticatedApiClient {
-	constructor(public readonly token: string) {}
-
+class ApiClient {
 	async getGames() {
-		const { data, error } = await client.GET("/games", {
-			params: {
-				header: this._getAuthorizationHeader(),
-			},
-		});
+		const { data, error } = await client.GET("/games");
 		if (error) throw new Error(error.message);
 		return data;
 	}
@@ -36,46 +19,8 @@ class AuthenticatedApiClient {
 	async getGame(gameId: number) {
 		const { data, error } = await client.GET("/games/{game_id}", {
 			params: {
-				header: this._getAuthorizationHeader(),
 				path: { game_id: gameId },
 			},
-		});
-		if (error) throw new Error(error.message);
-		return data;
-	}
-
-	async getGamePlayLatestState(gameId: number) {
-		const { data, error } = await client.GET(
-			"/games/{game_id}/play/latest_state",
-			{
-				params: {
-					header: this._getAuthorizationHeader(),
-					path: { game_id: gameId },
-				},
-			},
-		);
-		if (error) throw new Error(error.message);
-		return data;
-	}
-
-	async postGamePlayCode(gameId: number, code: string) {
-		const { error } = await client.POST("/games/{game_id}/play/code", {
-			params: {
-				header: this._getAuthorizationHeader(),
-				path: { game_id: gameId },
-			},
-			body: { code },
-		});
-		if (error) throw new Error(error.message);
-	}
-
-	async postGamePlaySubmit(gameId: number, code: string) {
-		const { data, error } = await client.POST("/games/{game_id}/play/submit", {
-			params: {
-				header: this._getAuthorizationHeader(),
-				path: { game_id: gameId },
-			},
-			body: { code },
 		});
 		if (error) throw new Error(error.message);
 		return data;
@@ -84,7 +29,6 @@ class AuthenticatedApiClient {
 	async getGameWatchRanking(gameId: number) {
 		const { data, error } = await client.GET("/games/{game_id}/watch/ranking", {
 			params: {
-				header: this._getAuthorizationHeader(),
 				path: { game_id: gameId },
 			},
 		});
@@ -97,7 +41,6 @@ class AuthenticatedApiClient {
 			"/games/{game_id}/watch/latest_states",
 			{
 				params: {
-					header: this._getAuthorizationHeader(),
 					path: { game_id: gameId },
 				},
 			},
@@ -105,16 +48,10 @@ class AuthenticatedApiClient {
 		if (error) throw new Error(error.message);
 		return data;
 	}
-
-	_getAuthorizationHeader() {
-		return { Authorization: `Bearer ${this.token}` };
-	}
 }
 
-export function createApiClient(token: string) {
-	return new AuthenticatedApiClient(token);
+export function createApiClient() {
+	return new ApiClient();
 }
 
-export const ApiClientContext = createContext<AuthenticatedApiClient | null>(
-	null,
-);
+export const ApiClientContext = createContext<ApiClient | null>(null);
