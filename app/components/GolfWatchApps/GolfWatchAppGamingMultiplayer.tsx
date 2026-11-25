@@ -10,7 +10,7 @@ type Props = {
 	gameDisplayName: string;
 	problemTitle: string;
 	problemDescription: string;
-	sampleCode: string;
+	sampleCodeHtml: string;
 	ranking: RankingEntry[];
 };
 
@@ -18,7 +18,7 @@ export default function GolfWatchAppGamingMultiplayer({
 	gameDisplayName,
 	problemTitle,
 	problemDescription,
-	sampleCode,
+	sampleCodeHtml,
 	ranking,
 }: Props) {
 	return (
@@ -30,7 +30,7 @@ export default function GolfWatchAppGamingMultiplayer({
 				<ProblemColumn
 					title={problemTitle}
 					description={problemDescription}
-					sampleCode={sampleCode}
+					sampleCodeHtml={sampleCodeHtml}
 				/>
 				<TitledColumn title="順位表">
 					<RankingTable ranking={ranking} />

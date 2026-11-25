@@ -4,12 +4,12 @@ import InlineCode from "./InlineCode";
 
 type Props = {
 	description: string;
-	sampleCode: string;
+	sampleCodeHtml: string;
 };
 
 export default function ProblemColumnContent({
 	description,
-	sampleCode,
+	sampleCodeHtml,
 }: Props) {
 	return (
 		<>
@@ -19,7 +19,7 @@ export default function ProblemColumnContent({
 				</pre>
 			</FoldableBorderedContainerWithCaption>
 			<FoldableBorderedContainerWithCaption caption="サンプルコード">
-				<CodeBlock code={sampleCode} language="php" />
+				<CodeBlock html={sampleCodeHtml} />
 			</FoldableBorderedContainerWithCaption>
 			<FoldableBorderedContainerWithCaption caption="スコア計算・PHP 環境">
 				<div className="text-gray-700 flex flex-col gap-2">

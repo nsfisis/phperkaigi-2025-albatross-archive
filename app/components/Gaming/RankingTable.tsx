@@ -61,7 +61,9 @@ export default function RankingTable({ ranking }: Props) {
 								{formatUnixTimestamp(entry.submitted_at)}
 							</TableBodyCell>
 							<TableBodyCell>
-								{entry.code && <CodePopover code={entry.code} />}
+								{entry.code != null && entry.code_html != null && (
+									<CodePopover code={entry.code} html={entry.code_html} />
+								)}
 							</TableBodyCell>
 						</tr>
 					))}

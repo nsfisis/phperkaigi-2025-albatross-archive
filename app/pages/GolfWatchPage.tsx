@@ -12,7 +12,7 @@ export default function GolfWatchPage({ game, ranking }: Props) {
 			gameDisplayName={game.display_name}
 			problemTitle={game.problem.title}
 			problemDescription={game.problem.description}
-			sampleCode={game.problem.sample_code}
+			sampleCodeHtml={game.problem.sample_code_html}
 			ranking={ranking}
 		/>
 	);
