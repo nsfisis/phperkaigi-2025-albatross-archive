@@ -1,16 +1,10 @@
-import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { ensureUserNotLoggedIn } from "../.server/auth";
+import type { MetaFunction } from "react-router";
 import BorderedContainer from "../components/BorderedContainer";
 import NavigateLink from "../components/NavigateLink";
 
 export const meta: MetaFunction = () => [
 	{ title: "PHPerKaigi 2025 Albatross" },
 ];
-
-export async function loader({ request }: LoaderFunctionArgs) {
-	await ensureUserNotLoggedIn(request);
-	return null;
-}
 
 export default function Index() {
 	return (
@@ -35,10 +29,19 @@ export default function Index() {
 						PHPer コードバトルを実施します。ここでは短いコードが正義です！
 						可読性も保守性も放り投げた、イベントならではのコードをお楽しみください！
 					</p>
+					<div className="mt-4 pt-4 border-t border-gray-300 max-w-prose">
+						<p className="font-bold text-gray-900">追記</p>
+						<p className="mt-2 text-gray-900">
+							イベントは終了しました。ご参加いただいたみなさま、ありがとうございました！
+							出題された問題や提出コードはこちらからご覧いただけます（勝敗が決した後も
+							PHPerKaigi
+							の会期中は提出が可能でした。閲覧できるのは最終的な提出コードで、コードバトルの場で書いたものとは異なる場合があります）。
+						</p>
+						<div className="mt-4 flex justify-center gap-4">
+							<NavigateLink to="/dashboard">問題一覧</NavigateLink>
+						</div>
+					</div>
 				</BorderedContainer>
-			</div>
-			<div>
-				<NavigateLink to="/login">ログイン</NavigateLink>
 			</div>
 		</div>
 	);
