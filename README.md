@@ -1,27 +1,16 @@
 # PHPerKaigi 2025 Albatross
 
+https://github.com/nsfisis/phperkaigi-2025-albatross のアーカイブ。
 
-# これは何？
+元々は PHPerKaigi 2025 向けに作られた PHP 等によるコードゴルフサイトでしたが、カンファレンス終了に伴って運用を停止したため静的サイトとしてアーカイブしました。
 
-2025-03-21 から 2025-03-23 にかけて開催された [PHPerKaigi 2025](https://phperkaigi.jp/2025/) の中の企画、PHPer コードバトルのシステムです。
+サイト: https://t.nil.ninja/phperkaigi/2025/code-battle/
 
-[サイトはこちら (現在は新規にプレイすることはできません)](https://t.nil.ninja/phperkaigi/2025/code-battle/)
+## ライセンス
 
+このリポジトリ中のファイルには、以下を除いて The MIT License が適用されます。
 
-# サンドボックス化の仕組み
+- [public/favicon.svg](public/favicon.svg)
+- [public/logo.svg](public/logo.svg)
 
-ユーザから任意のコードを受け付ける関係上、何も対策をしないと深刻な脆弱性を抱えてしまいます。
-
-このシステムでは、送信されたコードを WebAssembly へ変換された PHP 処理系で実行することで、サンドボックス化を実現しています。
-
-
-# License
-
-The contents of the repository are licensed under The MIT License, except for
-
-* [backend/admin/assets/css/normalize.css](backend/admin/assets/normalize.css),
-* [backend/admin/assets/css/sakura.css](backend/admin/assets/sakura.css),
-* [public/favicon.svg](public/favicon.svg) and
-* [public/logo.svg](public/logo.svg).
-
-See [LICENSE](./LICENSE) for copylight notice.
+ライセンス表記については [LICENSE](./LICENSE) をご覧ください。
