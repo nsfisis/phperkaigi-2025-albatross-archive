@@ -8,7 +8,7 @@
 		"preview": "npm run build && vite preview",
 		"check": "npm run check:biome && npm run check:ts",
 		"check:biome": "biome check --write",
-		"check:ts": "tsc"
+		"check:ts": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@base-ui-components/react": "^1.0.0-rc.0",
@@ -26,7 +26,7 @@
 		"@types/react-dom": "^19.3.0",
 		"@vitejs/plugin-react": "^6.3.0",
 		"tailwindcss": "^4.3.5",
-		"typescript": "^5.9.3",
+		"typescript": "^7.0.2",
 		"vite": "^8.3.8"
 	},
 	"engines": {
