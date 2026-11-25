@@ -1,0 +1,1 @@
+{"game":{"display_name":"練習問題","duration_seconds":173700,"game_id":1,"game_type":"multiplayer","is_public":true,"main_players":[],"problem":{"description":"標準入力から数字が一つ入力されます。二乗して標準出力へ出力してください。\n","problem_id":1,"sample_code":"$line = fgets(STDIN);\n$number = intval($line);\necho $number * $number, PHP_EOL;\n","title":"練習問題"},"started_at":1742553944}}
